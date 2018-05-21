@@ -1,0 +1,65 @@
+    <h1>Tomnonymous Admin</h1>
+    <p>Welcome to the show</p>
+    <h3>New Blog Post</h3>
+    <form action="/insert" method="post">
+        <div class="container">
+        <label>Title</label>
+        <input type="text" class="form-control" onBlur="generateblogPostUrl(this.value)"name="title" id="">
+        <label>Author</label>
+        <input type="text" class="form-control" name="author"value="Thomas Zeeh" id="">
+        <label>Content</label>
+        <textarea class="form-control" name="content"></textarea>
+        <label>Tags</label>
+        <input type="text" class="form-control" name="tags" id="">
+        <label>Url Short Tag</label>
+        <input type="text" class="form-control" name="urlTags" id="blogPostUrl">
+        <br/>
+        <button type="submit" class="btn btn-primary btn-block">Insert</button>
+        <hr>
+        <section class="get">
+    <h3>Get Data</h3>
+    <a href="/get-data">LOAD DATA</a>
+    <div>
+        {{# each items }}
+            <article class="item">
+                <div class="list-group-item list-group-item-success">
+                <div><b>Title:</b> {{ this.title }}</div>
+                <div><b>Content:</b> {{ this.content }}</div>
+                <div><b>Author:</b> {{ this.author }}</div>
+                <div><b>Tags:</b> {{ this.tags }}</div>
+                <div><b>Url-Short-Tag:</b> {{ this.urlTags }}</div>
+                <div><b>ID:</b> {{ this._id }}</div>
+                </div>
+            </article>
+        {{/each}}
+    </div>
+</section>
+    </form>
+    <hr/>
+    <section class="update">
+    <h3>Update Posts</h3>
+    <form action="/update" method="post">
+        <label>ID</label>
+        <input type="text" class="form-control" name="id" id="">
+        <label>Title</label>
+        <input type="text" class="form-control" name="title" id="">
+        <label>Author</label>
+        <input type="text" class="form-control" name="author" id="">
+        <label>Content</label>
+        <input type="text" class="form-control" name="content" id="">
+        <label>Tags</label>
+        <input type="text" class="form-control" name="tags" id="">
+        <label>Url Short Tags</label>
+        <input type="text" class="form-control" name="urlTags"  >
+        <br/>
+        <button type="submit" class="btn btn-primary btn-block" >UPDATE</button>
+        </div>
+    </form>
+</section>
+<hr/>
+<h3>Delete Posts</h3>
+<form action="/delete" method="post">
+    <label>ID</label>
+    <input type="text" class="form-control" name="id" id="">
+    <button type="submit" class="btn btn-primary btn-block">Delete</button>
+</form>
