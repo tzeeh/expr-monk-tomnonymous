@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var db = require('monk')('mongodb://localhost/tomSite');
 var assert = require('assert');
+var db = require('monk')('mongodb://localhost/tomSite');
 var blog = db.get('blog');
 
 
@@ -16,8 +16,8 @@ router.get('/', function(req, res, next) {
 // GET DATA
 router.get('/get-data', function(req, res, next) {
   blog.find({}).then( function(docs){
-    console.log(docs);
     res.render('index',{items: docs});
+    console.log(docs)
   });
 });
 
@@ -28,7 +28,8 @@ router.post('/insert', function(req, res, next) {
     content: req.body.content,
     author: req.body.author,
     tags: req.body.tags,
-    urlTags: req.body.urlTags
+    urlTags: req.body.urlTags,
+    dateCreated: new Date()
   };
   blog.insert(item);
   res.redirect('/');
@@ -36,17 +37,18 @@ router.post('/insert', function(req, res, next) {
 
 // UPDATE DATA
 router.post('/update', function(req, res, next){
-  var item = {
-    title: req.body.title,
-    content: req.body.content,
-    author: req.body.author,
-    tags: req.body.tags,
-    urlTags: req.body.urlTags
-  };
+  var updatePost = {};
   var id = req.body.id;
+  for(var key in req.body){
+    if(req.body[key] != ''){
+      if(key != 'id'){
+        updatePost[key] = req.body[key];
+      }
+    }
+  }
   // can do this way too
   // blog.update({'_id': db.id(id)}, item);
-  blog.update(id, item);
+  blog.update(id, {$set:updatePost});
   res.redirect('/');
 });
 

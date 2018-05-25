@@ -1,6 +1,9 @@
 function generateblogPostUrl(title){
     var blogPostUrl = title.replace(/\s+/g, '-').toLowerCase();
-    console.log(blogPostUrl);
     $('#blogPostUrl').val(blogPostUrl);
-
+}
+function passId(element){
+    var id = $(element).text();
+    $('#updateId').val(id);
+    $('#deleteId').val(id);
 }
